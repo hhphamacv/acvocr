@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Data Extractor (OCR)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+</head>
+<body>
+    <div class="container">
+        <h1>📸 Image Data Extractor</h1>
+        <p>Upload one or more images containing text to extract the data.</p>
+
+        <input type="file" id="imageInput" accept="image/*" multiple>
+
+        <button onclick="extractData()" id="extractButton" disabled>Extract Text</button>
+        <button onclick="clearAll()" id="clearButton" disabled>Clear All</button>
+
+        <div id="status" class="status-message">Awaiting image upload...</div>
+
+        <div id="image-previews" class="previews-container">
+            </div>
+
+        <div id="results-area" class="results-area hidden">
+            <h2>Extracted Text:</h2>
+            <pre id="extractedText"></pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
