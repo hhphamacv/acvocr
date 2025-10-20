@@ -60,15 +60,15 @@ async function extractData() {
     statusElement.textContent = 'Initializing OCR Worker... This might take a moment.';
     const worker = await Tesseract.createWorker({
     logger: m => {
-        // This is the SAFE way to access and use the progress data
-        if (m.status === 'recognizing text') {
-             const progressPercent = Math.round(m.progress * 100);
-             statusElement.textContent = `Processing image ${progressPercent}%...`;
-        } else if (m.status) {
-             const statusText = m.status.charAt(0).toUpperCase() + m.status.slice(1);
-             statusElement.textContent = `${statusText}...`;
-            }
-        }
+    // This is the SAFE way to access and use the progress data
+    if (m.status === 'recognizing text') {
+         const progressPercent = Math.round(m.progress * 100);
+         statusElement.textContent = `Processing image ${progressPercent}%...`;
+    } else if (m.status) {
+         const statusText = m.status.charAt(0).toUpperCase() + m.status.slice(1);
+         statusElement.textContent = `${statusText}...`;
+    }
+}
     });
 
     await worker.loadLanguage('eng');
@@ -120,4 +120,5 @@ function clearAll() {
     updateButtonStates();
 
 }
+
 
