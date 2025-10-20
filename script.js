@@ -60,11 +60,18 @@ async function extractData() {
     statusElement.textContent = 'Initializing OCR Worker... This might take a moment.';
     const worker = await Tesseract.createWorker({
         logger: m => {
-            // Update status with Tesseract progress messages
+            // OPTIONAL: Keep this line for debugging, but remove it once fixed
+            // console.log(m.status, m.progress); 
+            
+            // Only access status and progress, and construct a new string for the DOM
             if (m.status === 'recognizing text') {
-                 statusElement.textContent = `Processing image ${m.progress * 100}%...`;
-            } else {
-                 statusElement.textContent = `${m.status.charAt(0).toUpperCase() + m.status.slice(1)}...`;
+                 // Use Math.round to display a cleaner percentage
+                 const progressPercent = Math.round(m.progress * 100);
+                 statusElement.textContent = `Processing image ${progressPercent}%...`;
+            } else if (m.status) {
+                 // Update status for loading and initialization steps
+                 const statusText = m.status.charAt(0).toUpperCase() + m.status.slice(1);
+                 statusElement.textContent = `${statusText}...`;
             }
         }
     });
@@ -116,4 +123,5 @@ function clearAll() {
     // Update status and buttons
     statusElement.textContent = 'Awaiting image upload...';
     updateButtonStates();
+
 }
